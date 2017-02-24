@@ -1,0 +1,135 @@
+" vim: set filetype=vim: set nocursorline " don't highlight current line
+set background=dark
+set nocompatible
+set clipboard=unnamed
+
+set modeline
+set modelines=5
+
+set autowrite
+set autoread
+"set autochdir "Caused problems with ctrlp (used homedir)
+set directory-=.
+set nowritebackup
+set softtabstop=2
+set tabstop=8 " Actual tabstops are 8 chars, if they exist I want to fix them
+set whichwrap+=<,>,h,l,[,] " Wrap arrow keys between lines
+autocmd! bufwritepost .vimrc source ~/.vimrc
+autocmd! bufwritepost .vimrc.after source ~/.vimrc.after
+
+autocmd FileType * set tabstop=2|set shiftwidth=2|set expandtab
+autocmd FileType ruby set tabstop=2|set shiftwidth=2|set expandtab
+autocmd FileType python set tabstop=4|set shiftwidth=4|set expandtab
+autocmd FileType make set tabstop=4|set shiftwidth=4|set noexpandtab
+au BufEnter *.py set ai sw=4 ts=4 sta et fo=croql
+
+map <Leader>n :NERDTreeToggle<CR>
+set pastetoggle=<Leader>p
+
+colorscheme default
+" colorscheme molokai
+" colorscheme moriarty
+
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+autocmd CursorHold * checktime
+
+"let &colorcolumn="120,".join(range(150,999),",")
+let &colorcolumn="120,".join(range(150,999),",")
+highlight ColorColumn cterm=bold ctermbg=black guibg=lightgrey
+
+highlight OverLength ctermbg=black ctermfg=lightgrey guibg=lightgrey
+match OverLength '\%>120v.\+'
+
+
+" Enable highlighting current line but not the whole line, that slows 
+" down vim considerably - we disable the highlight when we move to another
+" window
+set cul
+hi clear CursorLine
+augroup CLClear
+    autocmd WinEnter * set cul
+    autocmd! ColorScheme * hi clear CursorLine
+    autocmd WinLeave * set nocul
+augroup END
+
+hi CursorLineNR cterm=bold
+augroup CLNRSet
+    autocmd WinEnter * set cul
+    autocmd! ColorScheme * hi CursorLineNR cterm=bold
+    autocmd WinLeave * set nocul
+augroup END
+
+let NERDTreeShowHidden=1
+let g:netrw_altv = 1
+let g:netrw_winsize = 70
+let g:netrw_preview   = 1
+let g:netrw_liststyle = 3
+let g:netrw_winsize   = 30
+let g:netrw_browse_split = 3
+let g:nerdtree_tabs_open_on_console_startup = 1
+let g:headlights_use_plugin_menu = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#csv#enabled = 0
+let g:vimshell_editor_command = "vim"
+let g:gist_post_private = 1
+
+let g:multi_cursor_exit_from_visual_mode = 0
+let g:multi_cursor_exit_from_insert_mode = 0
+
+let g:calendar_google_calendar = 1
+
+let g:ctrlp_prompt_mappings = {
+      \ 'AcceptSelection("e")': [],
+      \ 'AcceptSelection("t")': ['<cr>', '<c-m>'],
+      \ }
+
+nmap <leader><space> :call whitespace#strip_trailing()<CR>
+map <leader>l :Align
+nmap <leader>a :Ack<space>
+map <leader>cap :CtrlPClearAllCaches<CR>
+map <C-c> "*y
+map <leader>cal :Calendar -view=week<CR>
+map cpp gqap
+" Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
+if executable('ag')
+  let g:ackprg = 'ag --nogroup --column'
+
+  " Use Ag over Grep
+  set grepprg=ag\ --nogroup\ --nocolor
+
+  " Use ag in CtrlP for listing files. Lightning fast and respects .gitignore
+  let g:ctrlp_user_command = "ag %s -l --nocolor -g '' --hidden"
+endif
+
+" Fix Cursor in TMUX
+if exists('$TMUX')
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
+
+"map <C-w> :tabclose<CR>
+"map <C-t> :tabnew<CR>
+
+" inside screen / tmux
+map <Esc>[C <C-Right>
+map <Esc>[D <C-Left>
+" insert mode
+map! <Esc>[C <C-Right>
+map! <Esc>[D <C-Left>
+
+" no screen
+map <Esc>[1;5D <C-Left>
+map <Esc>[1;5C <C-Right>
+" insert mode
+map! <Esc>[1;5D <C-Left>
+map! <Esc>[1;5C <C-Right>
+nnoremap <C-right> :tabnext<CR>
+nnoremap } :tabnext<CR>
+nnoremap <C-left> :tabprevious<CR>
+nnoremap { :tabprevious<CR>
+" insert mode
+inoremap <C-right> <Esc>:tabnext<CR>
+inoremap <C-left> <Esc>:tabprevious<CR>
