@@ -1,0 +1,19 @@
+[user]
+    name = codylane
+    email = cody.lane@gmail.com
+[branch]
+    autosetuprebase = always
+[diff]
+    renameLimit = 100000
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+[alias]
+    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    ci = commit
+    co = checkout
+    gpp = !git pull && git pull
+    wip = commit -am 'WIP'
+    undo = reset HEAD~1 --mixed
+    amend = commit -a --amend

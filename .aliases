@@ -1,0 +1,8 @@
+## bash aliases
+
+## ruby
+alias be='bundle exec $*'
+alias berake='bundle exec rake $*'
+alias berspec='bundle exec rspec $*'
+alias berss='bundle exec rake spec_standalone'
+alias bersp='bundle exec rake spec_prep'
