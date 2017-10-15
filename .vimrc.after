@@ -34,11 +34,11 @@ colorscheme default
 autocmd CursorHold * checktime
 
 "let &colorcolumn="120,".join(range(150,999),",")
-let &colorcolumn="120,".join(range(150,999),",")
+let &colorcolumn="80,".join(range(150,999),",")
 highlight ColorColumn cterm=bold ctermbg=black guibg=lightgrey
 
 highlight OverLength ctermbg=black ctermfg=lightgrey guibg=lightgrey
-match OverLength '\%>120v.\+'
+match OverLength '\%>80v.\+'
 
 
 " Enable highlighting current line but not the whole line, that slows 
@@ -91,6 +91,7 @@ map <C-c> "*y
 map <leader>cal :Calendar -view=week<CR>
 map cpp gqap
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
+
 if executable('ag')
   let g:ackprg = 'ag --nogroup --column'
 
