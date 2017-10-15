@@ -21,7 +21,7 @@ function prompt {
   local CYANBOLD="\[\033[1;36m\]"
   local WHITE="\[\033[0;37m\]"
   local WHITEBOLD="\[\033[1;37m\]"
-  export PS1="\n$WHITEBOLD[\t]$GREENBOLD \u@\h\[\033[00m\]$YELLOWBOLD\$(parse_git_branch) :$CYANBOLD\w\[\033[00m\]\n\\$ "
+  export PS1="\n$GREENBOLD\u \h\[\033[00m\]$YELLOWBOLD\$(parse_git_branch) :$CYANBOLD\w\[\033[00m\]\n\\$ "
 }
 
 prompt
