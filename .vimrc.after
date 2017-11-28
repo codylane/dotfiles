@@ -33,12 +33,11 @@ colorscheme elflord
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 autocmd CursorHold * checktime
 
-"let &colorcolumn="120,".join(range(150,999),",")
 let &colorcolumn="120,".join(range(150,999),",")
-highlight ColorColumn term=reverse cterm=reverse gui=reverse
+highlight ColorColumn cterm=bold ctermbg=black guibg=lightgrey
 
-highlight OverLength ctermbg=red ctermfg=white guibg=lightgrey
-match OverLength '\%>120v.\+'
+highlight OverLength ctermbg=black ctermfg=lightgrey guibg=lightgrey
+match OverLength '\%>80v.\+'
 
 highlight Visual term=reverse ctermbg=green guibg=DarkGrey
 
@@ -106,6 +105,7 @@ map <C-c> "*y
 map <leader>cal :Calendar -view=week<CR>
 map cpp gqap
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
+
 if executable('ag')
   let g:ackprg = 'ag --nogroup --column'
 
