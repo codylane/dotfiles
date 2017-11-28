@@ -35,10 +35,18 @@ autocmd CursorHold * checktime
 
 "let &colorcolumn="120,".join(range(150,999),",")
 let &colorcolumn="120,".join(range(150,999),",")
-highlight ColorColumn cterm=bold ctermbg=black guibg=lightgrey
+highlight ColorColumn term=reverse cterm=reverse gui=reverse
 
-highlight OverLength ctermbg=black ctermfg=lightgrey guibg=lightgrey
+highlight OverLength ctermbg=red ctermfg=white guibg=lightgrey
 match OverLength '\%>120v.\+'
+
+highlight Visual term=reverse ctermbg=green guibg=DarkGrey
+
+
+" Use the same symbos as Textmate for tabstops and EOL
+" ctrl-v u1234=ሴ
+set listchars=tab:▸\ ,eol:¬
+set nolist
 
 
 " Enable highlighting current line but not the whole line, that slows 
