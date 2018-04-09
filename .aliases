@@ -1,5 +1,8 @@
 ## bash aliases
 
+## osx fix dns
+alias osx-fix-dns='sudo killall -9 mDNSResponder'
+
 ## ruby
 alias be='bundle exec $*'
 alias berake='bundle exec rake $*'
