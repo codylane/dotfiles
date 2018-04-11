@@ -24,4 +24,7 @@ function prompt {
   export PS1="\n$GREENBOLD\u \h\[\033[00m\]$YELLOWBOLD\$(parse_git_branch) :$CYANBOLD\w\[\033[00m\]\n\\$ "
 }
 
+export -f parse_git_branch
+export -f prompt
+
 prompt
