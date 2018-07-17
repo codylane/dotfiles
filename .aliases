@@ -1,5 +1,9 @@
 ## bash aliases
 
+
+## enable ls colors
+alias ls='ls -G'
+
 ## osx fix dns
 alias osx-fix-dns='sudo killall -9 mDNSResponder'
 alias osx-hup-dns='sudo kill -9 $(pgrep -f "dnsmasq")'
