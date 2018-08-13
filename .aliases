@@ -22,3 +22,7 @@ alias docker-exec='docker exec -it $(docker ps -qa | head -1) /bin/bash'
 
 ## virtualenv
 alias sd='source deactivate'
+
+
+## external-ip
+alias external-ip='dig +short myip.opendns.com @resolver1.opendns.com'
