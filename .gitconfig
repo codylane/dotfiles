@@ -12,6 +12,7 @@
 [alias]
     lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
     ci = commit
+    ls = !git diff-tree --no-commit-id --name-only -r
     co = checkout
     gpp = !git pull && git pull
     wip = commit -am 'WIP'
