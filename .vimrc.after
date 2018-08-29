@@ -156,10 +156,20 @@ inoremap <C-left> <Esc>:tabprevious<CR>
 " ctrl + ] - goto definition
 " ctrl + t - Jump back to previous spot
 " ctrl + w ctrl + ] - Open the defintion in a horizontal split
+" ctrl + w _ - Max out the height of the current split
+" ctrl + w | - Max out the width of the current split
+" ctrl + w = - Normalize all the split sizes
+" https://robots.thoughtbot.com/vim-splits-move-faster-and-more-naturally
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
-
+nnoremap <C-H> <C-W><C-H>
+" mapping ctrl | to create a vertical split
 map <C-j><bar> :vsp <CR>
+" mapping ctrl - to create a horizontal split
 map <C-j>- :sp <CR>
+set splitbelow
+set splitright
+
+" Lusty Explorer settings
