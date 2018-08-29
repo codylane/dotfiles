@@ -13,7 +13,7 @@ VIM Keyboard Examples
 
 | Key Sequence | Description                                   |
 |--------------|-----------------------------------------------|
-| `ctrl w |`   | Create a vertical split                       |
+| `ctrl w \|`   | Create a vertical split                       |
 | `ctrl w -`   | Create a horizontal split                     |
 
 ## VIM splits
