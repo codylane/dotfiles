@@ -12,6 +12,7 @@ VIM Keyboard Examples
 ## Split Navigation
 
 | Key Sequence | Description                                   |
+|--------------|-----------------------------------------------|
 | `ctrl w |`   | Create a vertical split                       |
 | `ctrl w -`   | Create a horizontal split                     |
 
