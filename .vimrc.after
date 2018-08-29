@@ -72,6 +72,8 @@ let g:flake8_show_in_gutter=1
 let g:flake8_show_in_file=1
 autocmd BufWritePost *.py call Flake8()
 
+
+
 let g:vim_markdown_folding_disabled = 1
 let NERDTreeShowHidden=1
 let g:netrw_altv = 1
@@ -141,6 +143,7 @@ map <Esc>[1;5C <C-Right>
 " insert mode
 map! <Esc>[1;5D <C-Left>
 map! <Esc>[1;5C <C-Right>
+
 nnoremap <C-right> :tabnext<CR>
 nnoremap } :tabnext<CR>
 nnoremap <C-left> :tabprevious<CR>
@@ -148,3 +151,15 @@ nnoremap { :tabprevious<CR>
 " insert mode
 inoremap <C-right> <Esc>:tabnext<CR>
 inoremap <C-left> <Esc>:tabprevious<CR>
+
+" vim split navigation made easier"
+" ctrl + ] - goto definition
+" ctrl + t - Jump back to previous spot
+" ctrl + w ctrl + ] - Open the defintion in a horizontal split
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+
+map <C-j><bar> :vsp <CR>
+map <C-j>- :sp <CR>
