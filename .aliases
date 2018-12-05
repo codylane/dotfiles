@@ -2,7 +2,7 @@
 
 
 ## enable ls colors
-alias ls='ls -G'
+alias ls='ls --color'
 
 ## osx fix dns
 alias osx-fix-dns='sudo killall -9 mDNSResponder'
