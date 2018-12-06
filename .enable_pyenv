@@ -1,0 +1,18 @@
+## pyenv
+# export PYENV_VIRTUALENVWRAPPER_PREFER_PYVENV="true"
+PYENV_CMD=$(command -v pyenv 2>>/dev/null)
+PYENV_VIRTUALENV_CMD=$(command pyenv-virtualenv-init)
+
+if [ -n "$PYENV_CMD" ]; then
+  eval "$(pyenv init -)"
+
+  # This must be after pyenv init
+  export PYENV_ROOT="$(pyenv root)"
+
+  # pyenv virtualenvwrapper
+else
+  unset PYENV_CMD
+  unset PYENV_ROOT
+fi
+
+[ -n "$PYENV_VIRTUALENV_CMD" ] && eval "$(pyenv virtualenv-init -)" || unset PYENV_VIRTUALENV_CMD

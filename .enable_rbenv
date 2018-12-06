@@ -1,0 +1,12 @@
+## rbenv
+RBENV_CMD=$(command -v rbenv 2>>/dev/null)
+
+if [ -n "$RBENV_CMD" ]; then
+  eval "$(rbenv init -)"
+
+  # This must be after rbenv init
+  export RBENV_ROOT="$(rbenv root)"
+else
+  unset RBENV_ROOT
+  unset RBENV_CMD
+fi
