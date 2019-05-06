@@ -1,8 +1,6 @@
 [user]
     name = codylane
     email = cody.lane@gmail.com
-[branch]
-    autosetuprebase = always
 [diff]
     renameLimit = 100000
 [color]
