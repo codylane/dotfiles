@@ -33,7 +33,7 @@ colorscheme elflord
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 autocmd CursorHold * checktime
 
-let &colorcolumn="120,".join(range(150,999),",")
+let &colorcolumn="80,".join(range(80,999),",")
 highlight ColorColumn cterm=bold ctermbg=black guibg=lightgrey
 
 highlight OverLength ctermbg=black ctermfg=lightgrey guibg=lightgrey
@@ -48,7 +48,7 @@ set listchars=tab:▸\ ,eol:¬
 set nolist
 
 
-" Enable highlighting current line but not the whole line, that slows 
+" Enable highlighting current line but not the whole line, that slows
 " down vim considerably - we disable the highlight when we move to another
 " window
 set cul
