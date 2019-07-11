@@ -165,3 +165,6 @@ set splitright
 
 map <C-W><bar> :vsp<CR>
 map <C-W>- :sp<CR>
+
+let g:python_host_prog = '/usr/local/miniconda3/envs/py27/bin/python2.7'
+let g:python3_host_prog = '/usr/local/miniconda3/envs/py37/bin/python3.7'

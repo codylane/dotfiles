@@ -1,5 +1,8 @@
 ## bash aliases
 
+## VI
+alias vi='nvim'
+
 ## networking
 alias default-route-interface="ip route get default | sed -e 's/^.*dev //g'"
 alias default-ip="ip addr show $(default-route-interface) | grep 'inet ' | sed -e 's/^.*inet //g' -e 's/\/.*//g'"
