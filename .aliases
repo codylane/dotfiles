@@ -1,6 +1,9 @@
 ## bash aliases
 
-## VI
+## python dev projects
+alias cdpcars='cd ~/prj/python/pcars; . ./init.sh'
+
+## vim
 alias vi='nvim'
 
 ## networking
