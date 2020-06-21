@@ -172,3 +172,15 @@ map <C-W>- :sp<CR>
 let g:python_host_prog = '/usr/local/miniconda3/envs/py27/bin/python2.7'
 let g:python3_host_prog = '/usr/local/miniconda3/envs/py37/bin/python3.7'
 let g:ruby_host_prog    = '/usr/local/rubies/system/current/usr/bin/ruby'
+
+let mapleader=','
+if exists(":Tabularize")
+  nmap <Leader>a= :Tabularize /=<CR>
+  vmap <Leader>a= :Tabularize /=<CR>
+
+  nmap <Leader>a: :Tabularize /:\zs<CR>
+  vmap <Leader>a: :Tabularize /:\zs<CR>
+
+  nmap <Leader>a=> :Tabularize /=><CR>
+  vmap <Leader>a=> :Tabularize /=><CR>
+endif

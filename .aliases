@@ -35,3 +35,6 @@ alias sd='source deactivate; pyenv rehash'
 
 ## external-ip
 alias external-ip='dig +short myip.opendns.com @resolver1.opendns.com'
+
+## utils
+alias rm-ctrlm='sed -e s///g'
