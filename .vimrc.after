@@ -183,6 +183,9 @@ if exists(":Tabularize")
 
   nmap <Leader>a=> :Tabularize /=><CR>
   vmap <Leader>a=> :Tabularize /=><CR>
+
+  nmap <Leader>a&& :Tabularize /&&<CR>
+  vmap <Leader>a&& :Tabularize /&&<CR>
 endif
 
 " inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
