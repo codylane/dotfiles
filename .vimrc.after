@@ -27,11 +27,11 @@ au BufEnter *.py set ai sw=4 ts=4 sta et fo=croql
 map <Leader>n :NERDTreeToggle<CR>
 set pastetoggle=<Leader>p
 
-colorscheme elflord
-" colorscheme ir_dark
+" colorscheme default
+"colorscheme elflord
+colorscheme ir_dark
 " colorscheme elflord
 " colorscheme molokai
-" colorscheme moriarty
 
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 autocmd CursorHold * checktime
