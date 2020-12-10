@@ -31,7 +31,7 @@ colorscheme ir_black
 " colorscheme jellybeans
 " colorscheme default
 "colorscheme elflord
-" colorscheme ir_dark
+"colorscheme ir_black
 " colorscheme elflord
 " colorscheme molokai
 
@@ -46,6 +46,15 @@ highlight ColorColumn cterm=bold ctermbg=black guibg=lightgrey
 "
 " highlight OverLength ctermbg=black ctermfg=lightgrey guibg=lightgrey
 " match OverLength '\%>80v.\+'
+
+" let &colorcolumn="80,".join(range(80,999),",")
+" highlight ColorColumn cterm=bold ctermbg=black guibg=lightgrey
+
+" highlight OverLength ctermbg=black ctermfg=lightgrey guibg=lightgrey
+" match OverLength '\%>80v.\+'
+
+" highlight Visual term=reverse ctermbg=green guibg=DarkGrey
+" match Visual '\%>80v.\+'
 
 " highlight Visual term=reverse ctermbg=green guibg=DarkGrey
 
