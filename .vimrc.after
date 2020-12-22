@@ -201,6 +201,12 @@ if exists(":Tabularize")
   vmap <Leader>a&& :Tabularize /&&<CR>
 endif
 
+nmap <Leader>s1 :set spell spelllang=en_us<CR>
+vmap <Leader>s1 :set spell spelllang=en_us<CR>
+
+nmap <Leader>s0 :set nospell<CR>
+vmap <Leader>s0 :set nospell<CR>
+
 " inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 "
 " function! s:align()
