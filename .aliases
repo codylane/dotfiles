@@ -8,14 +8,12 @@ alias vi='nvim'
 
 ## networking
 alias default-route-interface="ip route get default | sed -e 's/^.*dev //g'"
-alias default-ip="ip addr show $(default-route-interface) | grep 'inet ' | sed -e 's/^.*inet //g' -e 's/\/.*//g'"
 
 ## enable ls colors
 alias ls='ls --color'
 
 ## osx fix dns
 alias osx-fix-dns='sudo killall -9 mDNSResponder'
-alias osx-hup-dns='sudo kill -9 $(pgrep -f "dnsmasq")'
 
 ## ruby
 alias be='bundle exec'
@@ -26,8 +24,6 @@ alias bersp='bundle exec rake spec_prep'
 
 ## docker
 alias docker-host-ip='[ -n "$DOCKER_HOST" ] && echo "${DOCKER_HOST#tcp://}" | cut -d":" -f1'
-alias docker-exec='docker exec -it $(docker ps -qa | head -1) /bin/bash'
-
 
 ## virtualenv
 alias sd='source deactivate; pyenv rehash'
