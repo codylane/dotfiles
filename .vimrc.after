@@ -41,6 +41,8 @@ colorscheme ir_black
 let &colorcolumn="80"
 highlight ColorColumn cterm=bold ctermbg=black guibg=lightgrey
 
+" highlight SpellBad cterm=underline gui=underline guibg=#2F2F00 ctermbg=Black
+
 " let &colorcolumn="80,".join(range(80,999),",")
 " highlight ColorColumn cterm=bold ctermbg=black guibg=lightgrey
 "
@@ -207,6 +209,7 @@ vmap <Leader>s1 :set spell spelllang=en_us<CR>
 nmap <Leader>s0 :set nospell<CR>
 vmap <Leader>s0 :set nospell<CR>
 
+
 " inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 "
 " function! s:align()
@@ -219,3 +222,6 @@ vmap <Leader>s0 :set nospell<CR>
 "     call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
 "   endif
 " endfunction
+"
+highlight clear SpellBad
+highlight SpellBad cterm=underline
