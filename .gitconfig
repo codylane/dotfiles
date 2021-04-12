@@ -1,21 +1,24 @@
 [user]
-    name = codylane
-    email = cody.lane@gmail.com
+  name = codylane
+  email = cody.lane@gmail.com
 [diff]
-    renameLimit = 100000
+  renameLimit = 100000
 [color]
-    diff = auto
-    status = auto
-    branch = auto
+  diff = auto
+  status = auto
+  branch = auto
 [alias]
-    lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-    show-branches = for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
-    ci = commit
-    ls = !git diff-tree --no-commit-id --name-only -r
-    co = checkout
-    gpp = !git pull && git pull
-    wip = commit -am 'WIP'
-    undo = reset HEAD~1 --mixed
-    amend = commit -a --amend
+  lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+  show-branches = for-each-ref --sort=committerdate refs/heads/ --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(color:red)%(objectname:short)%(color:reset) - %(contents:subject) - %(authorname) (%(color:green)%(committerdate:relative)%(color:reset))'
+  ci = commit
+  ls = !git diff-tree --no-commit-id --name-only -r
+  co = checkout
+  gpp = !git pull && git pull
+  wip = commit -am 'WIP'
+  undo = reset HEAD~1 --mixed
+  amend = commit -a --amend
 [pull]
-    rebase = true
+  rebase = true
+
+[init]
+  defaultBranch = main
