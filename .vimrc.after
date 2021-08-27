@@ -184,9 +184,9 @@ set splitright
 map <C-W><bar> :vsp<CR>
 map <C-W>- :sp<CR>
 
-let g:python_host_prog = '/usr/local/miniconda3/envs/py27/bin/python2.7'
-let g:python3_host_prog = '/usr/local/miniconda3/envs/py37/bin/python3.7'
-let g:ruby_host_prog    = '/usr/local/rubies/system/current/usr/bin/ruby'
+let g:python_host_prog = '/home/codylane/miniconda3/envs/py27/bin/python2.7'
+let g:python3_host_prog = '/home/codylane/miniconda3/envs/py39/bin/python3.9'
+let g:ruby_host_prog    = '/home/codylane/rubies/system/current/usr/bin/ruby'
 
 let mapleader=','
 if exists(":Tabularize")
@@ -225,3 +225,12 @@ vmap <Leader>s0 :set nospell<CR>
 "
 highlight clear SpellBad
 highlight SpellBad cterm=underline
+
+" a cool little addition to VM to show realitive line numbers
+" source: https://jeffkreeftmeijer.com/vim-number/
+set number
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+augroup END
