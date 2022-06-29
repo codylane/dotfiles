@@ -1,0 +1,176 @@
+[ -f "${HOME}/.my_secrets" ] && . "${HOME}/.my_secrets"
+
+
+export ACTIVE_RUBY="${ACTIVE_RUBY}"
+export ACTIVE_RUBY_PATH="${ACTIVE_RUBY_PATH}"
+
+export LC_ALL=en_US.UTF-8
+
+export PROXY_HOST=
+export PROXY_PORT=
+export XDG_CONFIG_HOME=${HOME}
+export VPN_PIDS=
+
+export PATH="/usr/local/sbin:${PATH}"
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:${PATH}"
+
+export PATH="${HOME}/bin:${PATH}"
+
+
+
+# helpful functions
+
+activate_ruby()
+{
+  [ -f ".ruby-version" ] && ACTIVE_RUBY=$(head -1 .ruby-version)
+
+  ACTIVE_RUBY="${ACTIVE_RUBY:-2.6.6}"
+
+  [ -d "${ACTIVE_RUBY}" ] && ACTIVE_RUBY_PATH="${ACTIVE_RUBY}" || ACTIVE_RUBY_PATH="${HOME}/.rubies/${ACTIVE_RUBY}"
+
+  export LDFLAGS="-L${ACTIVE_RUBY_PATH}/lib"
+  export CPPFLAGS="-I${ACTIVE_RUBY_PATH}/include"
+
+  export PKG_CONFIG_PATH="${ACTIVE_RUBY_PATH}/lib/pkgconfig"
+
+  path_contains "${ACTIVE_RUBY_PATH}/bin" || export PATH="${ACTIVE_RUBY_PATH}/bin:${PATH}"
+}
+
+
+deactivate_ruby()
+{
+  [ -z "${ACTIVE_RUBY_PATH}" ] && return 0
+
+  remove_from_path "${ACTIVE_RUBY_PATH}"
+
+  export ACTIVE_RUBY_PATH=
+  export ACTIVE_RUBY=
+}
+
+dir_exists() {
+  [ -d "${1}" ]
+}
+
+path_contains() {
+  echo $PATH | grep -q "${1}"
+}
+
+append_path() {
+  dir_exists "${1}" || return 1
+
+  path_contains "${1}" || export PATH="${PATH}:${1}"
+}
+
+prepend_path() {
+  dir_exists "${1}" || return 1
+
+  path_contains "${1}" || export PATH="${1}:${PATH}"
+}
+
+remove_from_path()
+{
+  path_contains "${1}" || return 0
+
+  # no reason to remove a path entry if the user didn't pass any data
+  [ -n "${1}" ] || return 0
+
+  # remove the un-wanted path item
+  local updated_path=$(echo "${PATH}" | sed -e "s|${1}:||g")
+
+  export PATH="${updated_path}"
+}
+
+enable_proxy() {
+  # Proxy Info
+  export HTTP_PROXY="http://${PROXY_HOST}:${PROXY_PORT}"
+  export http_proxy="${PROXY_HOST}:${PROXY_PORT}"
+  export HTTPS_PROXY="https://${PROXY_HOST}:${PROXY_PORT}"
+  export https_proxy="${PROXY_HOST}:${PROXY_PORT}"
+  export NO_PROXY="localhost"
+  export ALL_PROXY="${PROXY_HOST}:${PROXY_PORT}"
+
+  git config --global http.proxy  "http://${PROXY_HOST}:${PROXY_PORT}"
+  git config --global https.proxy "https://${PROXY_HOST}:${PROXY_PORT}"
+
+  touch ~/.curlrc
+  sed -i -e.bak '/^proxy/d' ~/.curlrc
+  echo "proxy $HTTP_PROXY" >> ~/.curlrc
+}
+
+disable_proxy() {
+  git config --global --unset http.proxy
+  git config --global --unset https.proxy
+
+  unset ALL_PROXY
+  unset all_PROXY
+  unset HTTP_PROXY
+  unset http_proxy
+  unset HTTPS_PROXY
+  unset https_proxy
+  unset NO_PROXY
+  unset no_proxy
+
+  touch ~/.curlrc
+  sed -i '.bak' '/^proxy/d' ~/.curlrc
+}
+
+show_proxy() {
+  env | egrep -i '^(https?_proxy|no_proxy)'
+}
+
+enable_docker_machine() {
+  eval "$(docker-machine env default)"
+}
+
+disable_docker_machine() {
+  unset DOCKER_TLS_VERIFY
+  unset DOCKER_HOST
+  unset DOCKER_CERT_PATH
+  unset DOCKER_MACHINE_NAME
+  unset COMPOSE_CONVERT_WINDOWS_PATHS
+}
+
+autoproxy() {
+  [ -n "${VPN_PIDS}" ] && enable_proxy || disable_proxy
+}
+
+## main ##
+
+# attempt autoproxy
+# autoproxy
+
+[ -f ${HOME}/.aliases ] && . ${HOME}/.aliases
+[ -f ${HOME}/.bash_prompt ] && . ${HOME}/.bash_prompt
+[ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
+[ -f /usr/local/etc/profile.d/bash_completion.sh ] && . /usr/local/etc/profile.d/bash_completion.sh
+
+if [ -f "${HOME}/.ssh/id_rsa" ]; then
+
+  if [ -z "${SSH_AGENT_PID}" ]; then
+    eval "$(ssh-agent -s)"
+    ssh-add -K -q
+  fi
+
+fi
+
+# export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+export EDITOR='vim'
+export CFLAGS='-O2'
+export PYENV_ROOT="${HOME}/.pyenv"
+
+## pyenv
+# [ -f $HOME/.enable_pyenv ] && . $HOME/.enable_pyenv
+
+## rbenv
+# [ -f $HOME/.enable_rbenv ] && . $HOME/.enable_rbenv
+
+# docker-host-port-up && docker-machine status default | grep -iq running && eval "$(docker-machine env default)"
+## docker-machine bash-cmdline completion
+[ -f /usr/local/etc/bash_completion.d/docker-machine.bash ] && . /usr/local/etc/bash_completion.d/docker-machine.bash
+[ -f /usr/local/etc/bash_completion.d/docker-machine-prompt.bash ] && . /usr/local/etc/bash_completion.d/docker-machine-prompt.bash
+[ -f /usr/local/etc/bash_completion.d/docker-machine-wrapper.bash ] && . /usr/local/etc/bash_completion.d/docker-machine-wrapper.bash
+[ -f /usr/local/etc/bash_completion.d/docker-compose ] && . /usr/local/etc/bash_completion.d/docker-compose
+
+[ -S /var/run/docker.sock ] && export DOCKER_HOST="unix:///var/run/docker.sock"
+
+[ -z "${ACTIVE_RUBY}" ] || activate_ruby
