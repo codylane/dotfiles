@@ -211,7 +211,7 @@ vmap <Leader>s0 :set nospell<CR>
 
 
 " inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
-"
+
 " function! s:align()
 "   let p = '^\s*|\s.*\s|\s*$'
 "   if exists(':Tabularize') && getline('.') =~# '^\s*|' && (getline(line('.')-1) =~# p || getline(line('.')+1) =~# p)
@@ -225,14 +225,3 @@ vmap <Leader>s0 :set nospell<CR>
 "
 highlight clear SpellBad
 highlight SpellBad cterm=underline
-
-" a cool little addition to VM to show realitive line numbers
-" source: https://jeffkreeftmeijer.com/vim-number/
-set number
-augroup numbertoggle
-  autocmd!
-  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
-  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
-augroup END
-
-
