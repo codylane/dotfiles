@@ -144,28 +144,11 @@ autoproxy() {
 [ -f /usr/local/etc/bash_completion ] && . /usr/local/etc/bash_completion
 [ -f /usr/local/etc/profile.d/bash_completion.sh ] && . /usr/local/etc/profile.d/bash_completion.sh
 
-if [ -f "${HOME}/.ssh/id_rsa" ]; then
-
-  if [ -z "${SSH_AGENT_PID}" ]; then
-    eval "$(ssh-agent -s)"
-    ssh-add -K -q
-  fi
-
-fi
-
 # export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
 export EDITOR='vim'
 export CFLAGS='-O2'
 export PYENV_ROOT="${HOME}/.pyenv"
 
-## pyenv
-# [ -f $HOME/.enable_pyenv ] && . $HOME/.enable_pyenv
-
-## rbenv
-# [ -f $HOME/.enable_rbenv ] && . $HOME/.enable_rbenv
-
-# docker-host-port-up && docker-machine status default | grep -iq running && eval "$(docker-machine env default)"
-## docker-machine bash-cmdline completion
 [ -f /usr/local/etc/bash_completion.d/docker-machine.bash ] && . /usr/local/etc/bash_completion.d/docker-machine.bash
 [ -f /usr/local/etc/bash_completion.d/docker-machine-prompt.bash ] && . /usr/local/etc/bash_completion.d/docker-machine-prompt.bash
 [ -f /usr/local/etc/bash_completion.d/docker-machine-wrapper.bash ] && . /usr/local/etc/bash_completion.d/docker-machine-wrapper.bash
@@ -174,3 +157,7 @@ export PYENV_ROOT="${HOME}/.pyenv"
 [ -S /var/run/docker.sock ] && export DOCKER_HOST="unix:///var/run/docker.sock"
 
 [ -z "${ACTIVE_RUBY}" ] || activate_ruby
+
+[ -d "${HOME}/lib/arduino-ide" ] && export PATH="${HOME}/lib/arduino-ide/:${PATH}" || true
+
+[ -f "${HOME}/.bashrc" ] && source "${HOME}/.bashrc"
