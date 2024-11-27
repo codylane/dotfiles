@@ -38,7 +38,7 @@ colorscheme ir_black
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 " autocmd CursorHold * checktime
 
-let &colorcolumn="80"
+" let &colorcolumn="80"
 highlight ColorColumn cterm=bold ctermbg=black guibg=lightgrey
 
 " highlight SpellBad cterm=underline gui=underline guibg=#2F2F00 ctermbg=Black
@@ -209,7 +209,6 @@ vmap <Leader>s1 :set spell spelllang=en_us<CR>
 nmap <Leader>s0 :set nospell<CR>
 vmap <Leader>s0 :set nospell<CR>
 
-
 " inoremap <silent> <Bar>   <Bar><Esc>:call <SID>align()<CR>a
 
 " function! s:align()
@@ -222,6 +221,27 @@ vmap <Leader>s0 :set nospell<CR>
 "     call search(repeat('[^|]*|',column).'\s\{-\}'.repeat('.',position),'ce',line('.'))
 "   endif
 " endfunction
-"
+
+" ### arduino stuff ###
+
+function! ArduinoStatusLine()
+  let port = arduino#GetPort()
+  let line = '[' . g:arduino_board . '] [' . g:arduino_programmer . ']'
+  if !empty(port)
+          let line = line . ' (' . port . ':' . g:arduino_serial_baud . ')'
+  endif
+  return line
+endfunction
+augroup ArduinoStatusLine
+  autocmd! * <buffer>
+  autocmd BufWinEnter <buffer> setlocal stl=%f\ %h%w%m%r\ %{ArduinoStatusLine()}\ %=\ %(%l,%c%V\ %=\ %P%)
+augroup END
+
+autocmd BufNewFile,BufRead *.ino let g:airline_section_x='%{ArduinoStatusLine()}'
+
+" ### arduino stuff ###
+
 highlight clear SpellBad
 highlight SpellBad cterm=underline
+
+set nofoldenable
