@@ -27,3 +27,7 @@
 [fetch]
   prune = true
   rebase = true
+[init]
+	defaultBranch = main
+[safe]
+	directory = /opt/gists/pawfc
