@@ -222,25 +222,6 @@ vmap <Leader>s0 :set nospell<CR>
 "   endif
 " endfunction
 
-" ### arduino stuff ###
-
-function! ArduinoStatusLine()
-  let port = arduino#GetPort()
-  let line = '[' . g:arduino_board . '] [' . g:arduino_programmer . ']'
-  if !empty(port)
-          let line = line . ' (' . port . ':' . g:arduino_serial_baud . ')'
-  endif
-  return line
-endfunction
-augroup ArduinoStatusLine
-  autocmd! * <buffer>
-  autocmd BufWinEnter <buffer> setlocal stl=%f\ %h%w%m%r\ %{ArduinoStatusLine()}\ %=\ %(%l,%c%V\ %=\ %P%)
-augroup END
-
-autocmd BufNewFile,BufRead *.ino let g:airline_section_x='%{ArduinoStatusLine()}'
-
-" ### arduino stuff ###
-
 highlight clear SpellBad
 highlight SpellBad cterm=underline
 
