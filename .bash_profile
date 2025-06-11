@@ -69,11 +69,19 @@ install_janus()
   rm -f ~/.vim/Rakefile
   rm -f ~/.vim/janus/bootstrap.sh
 
-  cd ~/.vim/janus
+  cd ~/.vim/janus >>/dev/null
 
+  # install
   rake
+
+  # update
+  rake dev:update_submodules
+
   rm -rf janus/vim/tools/vimcss-color
+  rm -rf janus/vim/tools/snipmate
+
   sed -i.bak -e '/css-color/d' janus/submodules.yaml
+  rm -f .bak
 
   mkdir -p  ~/.janus/
 
@@ -84,7 +92,8 @@ install_janus()
   [ -d tcomment_vim ]       || git clone https://github.com/tomtom/tcomment_vim.git
   [ -d vim-flake8 ]         || git clone https://github.com/nvie/vim-flake8.git
   [ -d vim-tmux-navigator ] || git clone https://github.com/christoomey/vim-tmux-navigator.git
-  [ -d vim-airline ]        || git clone  https://github.com/vim-airline/vim-airline.git
+  [ -d vim-airline ]        || git clone https://github.com/vim-airline/vim-airline.git
+  [ -d supertab    ]        || git clone https://github.com/ervandew/supertab.git
 
   mkdir -p ~/nvim
   mkdir -p ~/.config/nvim
@@ -98,8 +107,6 @@ install_janus()
   [ -f .vimrc.before ] || curl -kLO https://raw.githubusercontent.com/codylane/dotfiles/master/.vimrc.before
   [ -f .bash_prompt ]  || curl -kLO https://raw.githubusercontent.com/codylane/dotfiles/master/.bash_prompt
   [ -f .aliases ]      || curl -kLO https://raw.githubusercontent.com/codylane/dotfiles/master/.aliases
-
-  cd - >>/dev/null
 
   command -v pip2 >>/dev/null 2>&1
   if [ $? -eq 0 ]; then
