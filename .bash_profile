@@ -47,6 +47,80 @@ deactivate_ruby()
   export ACTIVE_RUBY=
 }
 
+
+install_janus()
+{
+  local required_packages=
+
+  command -v git   >>/dev/null || required_packages="${required_packages} git"
+  command -v ruby  >>/dev/null || required_packages="${required_packages} ruby"
+  command -v ctags >>/dev/null || required_packages="${required_packages} ctags"
+  command -v ack   >>/dev/null || required_packages="${required_packages} ack"
+  command -v rake  >>/dev/null || required_packages="${required_packages} rake"
+
+  [ -d ~/.vim ] || git clone https://github.com/codylane/janus.git ~/.vim
+
+  if [ -n "${required_packages}" ]; then
+    echo "Please make sure that you have the following packages installed [${required_packages}]"
+    return 1
+  fi
+
+  rm -f ~/.vim/bootstrap.sh
+  rm -f ~/.vim/Rakefile
+  rm -f ~/.vim/janus/bootstrap.sh
+
+  cd ~/.vim/janus
+
+  rake
+  rm -rf janus/vim/tools/vimcss-color
+  sed -i.bak -e '/css-color/d' janus/submodules.yaml
+
+  mkdir -p  ~/.janus/
+
+  cd ~/.janus
+
+  [ -d ansible-vim ]        || git clone https://github.com/pearofducks/ansible-vim.git
+  [ -d tabular ]            || git clone https://github.com/godlygeek/tabular.git
+  [ -d tcomment_vim ]       || git clone https://github.com/tomtom/tcomment_vim.git
+  [ -d vim-flake8 ]         || git clone https://github.com/nvie/vim-flake8.git
+  [ -d vim-tmux-navigator ] || git clone https://github.com/christoomey/vim-tmux-navigator.git
+  [ -d vim-airline ]        || git clone  https://github.com/vim-airline/vim-airline.git
+
+  mkdir -p ~/nvim
+  mkdir -p ~/.config/nvim
+
+  ln -sf ~/.vimrc ~/nvim/init.vim
+  ln -sf ~/.vimrc ~/.config/nvim/init.vim
+
+  cd ${HOME}
+
+  [ -f .vimrc.after ]  || curl -kLO https://raw.githubusercontent.com/codylane/dotfiles/master/.vimrc.after
+  [ -f .vimrc.before ] || curl -kLO https://raw.githubusercontent.com/codylane/dotfiles/master/.vimrc.before
+  [ -f .bash_prompt ]  || curl -kLO https://raw.githubusercontent.com/codylane/dotfiles/master/.bash_prompt
+  [ -f .aliases ]      || curl -kLO https://raw.githubusercontent.com/codylane/dotfiles/master/.aliases
+
+  cd - >>/dev/null
+
+  command -v pip2 >>/dev/null 2>&1
+  if [ $? -eq 0 ]; then
+    pip2 install --user neovim
+    pip2 install --user pyvim
+  fi
+
+  command -v pip3 >>/dev/null 2>&1
+  if [ $? -eq 0 ]; then
+    pip3 install --user neovim
+    pip3 install --user pyvim
+  fi
+
+  # sed -e 's/^let g:python_host_prog/" let g:python_host_prog/g' \
+  #   -e 's/^let g:python3_host_prog/" let g:python3_host_prog/g' \
+  #   -e 's/^let g:ruby_host_prog/" let g:ruby_host_prog/g'       \
+  #   -i.bak                                                      \
+  #   ~/.vimrc.after
+}
+
+
 dir_exists() {
   [ -d "${1}" ]
 }
@@ -160,4 +234,6 @@ export PYENV_ROOT="${HOME}/.pyenv"
 
 [ -d "${HOME}/lib/arduino-ide" ] && export PATH="${HOME}/lib/arduino-ide/:${PATH}" || true
 
-[ -f "${HOME}/.bashrc" ] && source "${HOME}/.bashrc"
+# [ -d "${HOME}/miniconda3" ] && export PATH="${HOME}/miniconda3/bin:${PATH}"
+
+[ -d "${HOME}/.gem/ruby/3.0.0/bin" ] && export PATH="${HOME}/.gem/ruby/3.0.0/bin:${PATH}" || true
