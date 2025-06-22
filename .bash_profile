@@ -226,9 +226,10 @@ autoproxy() {
 [ -f /usr/local/etc/profile.d/bash_completion.sh ] && . /usr/local/etc/profile.d/bash_completion.sh
 
 # export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
-export EDITOR='vim'
+export EDITOR=$(command -v nvim || command -v vim || command -v vi 2>>/dev/null)
 export CFLAGS='-O2'
-export PYENV_ROOT="${HOME}/.pyenv"
+# export PYENV_ROOT="${HOME}/.pyenv"
+export COMPOSE_BAKE=true
 
 [ -f /usr/local/etc/bash_completion.d/docker-machine.bash ] && . /usr/local/etc/bash_completion.d/docker-machine.bash
 [ -f /usr/local/etc/bash_completion.d/docker-machine-prompt.bash ] && . /usr/local/etc/bash_completion.d/docker-machine-prompt.bash
